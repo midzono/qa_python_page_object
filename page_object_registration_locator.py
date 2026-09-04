@@ -9,7 +9,7 @@ class LoginPageMesto:
     # локатор кнопки входа в приложение
     sign_in_button = [By.CLASS_NAME, 'auth-form__button']
     # добавь здесь локатор для кнопки «Регистрация»
-    ...
+    registration_button = [By.CLASS_NAME, 'header__auth-link']
 
     # конструктор класса
     def __init__(self, driver):
@@ -25,9 +25,9 @@ class LoginPageMesto:
 
     # метод кликает по кнопке «Регистрация»
     def click_registration_button(self):
-        ...
+        self.driver.find_element(*self.registration_button).click()
 
     # метод проверяет текст кнопки «Регистрация»
     def check_text_registration_button(self):
-        registration_button_text = ...
-        assert ...
+        registration_button_text = self.driver.find_element(*self.registration_button).text
+        assert registration_button_text == "Регистрация", "Текст на кнопке не соответствует ожидаемому"
