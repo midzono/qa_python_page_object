@@ -31,7 +31,7 @@ class LoginPageMesto:
 # Класс главной страницы
 class HomePageMesto:
     # создай локатор для поля «Занятие» в профиле пользователя
-    profile_description = ...
+    profile_description = [By.CLASS_NAME, 'profile__description']
 
     def __init__(self, driver):
         self.driver = driver
@@ -42,7 +42,7 @@ class HomePageMesto:
 
     # метод для получения текстового значения поля «Занятие»
     def get_description(self):
-        return ...
+        return self.driver.find_element(*self.profile_description).text
 
 
 class TestPraktikum:
@@ -59,21 +59,21 @@ class TestPraktikum:
         self.driver.get('https://qa-mesto.praktikum-services.ru/')
 
         # создай объект класса страницы авторизации
-        ...
+        login_page = LoginPageMesto(self.driver)
         # выполни авторизацию
-        ...
+        login_page.login('1212345@yandex.ru', 'Пароль12345')
 
         # создай объект класса главной страницы приложения
-        ...
+        home_page = HomePageMesto(self.driver)
         # дождись загрузки главной страницы
-        ...
+        home_page.wait_for_load_home_page()
         # сохрани в переменную description текстовое значение поля «Занятие»
-        description = ...
+        description = home_page.get_description()
 
         # проверь, через assert что полученное текстовое значение поля «Занятие» совпадает с ожидаемым
-        assert ...
+        assert description == "занятие пользователя для твоей учетной записи"
 
     @classmethod
     def teardown_class(cls):
         # Закрой браузер
-        ...
+        cls.driver.quit()
