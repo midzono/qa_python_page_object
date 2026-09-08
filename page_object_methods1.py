@@ -32,3 +32,9 @@ class HomePageMesto:
         self.driver.find_element(*self.save_button).click()
 
     # напиши шаг добавления нового места
+    def new_place(self):
+        self.click_add_new_place_button()
+        self.set_name()
+        self.set_link_to_picture_field()
+        self.click_save_button()
+        
